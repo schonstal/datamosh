@@ -18,5 +18,4 @@ Installation
 ## Mac
 * Install ffmpeg: `brew install ffmpeg`
 * Install imagemagick: `brew install imagemagick`
-
-If you don't have `bundler` already: `sudo gem install bundler`
+* Install bundler: `sudo gem install bundler`
