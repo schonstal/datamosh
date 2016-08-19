@@ -1,10 +1,12 @@
 #!/bin/bash
 
 filename='input.gif'
+outname='output.gif'
 
-while getopts ":f:" opt; do
+while getopts ":f:o:" opt; do
   case $opt in
     f) filename="$OPTARG";;
+    o) outname="$OPTARG";;
     ?) printf "Usage: %s [-f filename] \n" $0
         exit 2;;
   esac
@@ -28,7 +30,7 @@ bundle exec ruby mosh.rb
 rm -rf frames
 mkdir frames
 ffmpeg -i datamosh.avi -vf scale=320:-1:flags=lanczos,fps=15 frames/ffout%03d.png
-convert -loop 0 frames/ffout*.png result.gif
+convert -loop 0 frames/ffout*.png $outname
 
 rm -rf frames
 rm video.avi
