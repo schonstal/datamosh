@@ -1,0 +1,35 @@
+#!/bin/bash
+
+filename='input.gif'
+
+while getopts ":f:" opt; do
+  case $opt in
+    f) filename="$OPTARG";;
+    ?) printf "Usage: %s [-f filename] \n" $0
+        exit 2;;
+  esac
+done
+
+if [ -e "$filename" ]
+then
+  echo "converting $filename"
+else
+  echo "file $filename does not exist"
+  printf "Usage: %s [-f filename] \n" $0
+  exit 2
+fi
+
+rm video.avi
+ffmpeg -i $filename -pix_fmt yuv420p -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" video.avi
+
+bundle install
+bundle exec ruby mosh.rb
+
+rm -rf frames
+mkdir frames
+ffmpeg -i datamosh.avi -vf scale=320:-1:flags=lanczos,fps=15 frames/ffout%03d.png
+convert -loop 0 frames/ffout*.png result.gif
+
+rm -rf frames
+rm video.avi
+rm datamosh.avi
