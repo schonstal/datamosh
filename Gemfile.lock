@@ -1,0 +1,13 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    aviglitch (0.1.5)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  aviglitch
+
+BUNDLED WITH
+   1.12.5
